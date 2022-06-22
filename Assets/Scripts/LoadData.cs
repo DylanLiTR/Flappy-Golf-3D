@@ -26,8 +26,15 @@ public class LoadData : MonoBehaviour
     [SerializeField] TextMeshProUGUI sensValue;
     [SerializeField] Slider sensSlider;
 
+    [Header("Customization")]
+    [SerializeField] GameObject customizationMenu;
+    [SerializeField] TMP_Dropdown ballDropdown;
+    [SerializeField] TMP_Dropdown wingsDropdown;
+    [SerializeField] TMP_Dropdown trailDropdown;
+
     [Header("Other")]
     [SerializeField] Toggle FPSToggle;
+    [SerializeField] GameObject frameCounter;
 
     void Awake()
     {
@@ -81,7 +88,7 @@ public class LoadData : MonoBehaviour
                 float localBrightness = PlayerPrefs.GetFloat("brightness");
 
                 // Set brightness text and slider
-                brightnessValue.SetText("{0:1}", localBrightness);
+                brightnessValue.SetText("{0:0}", localBrightness);
                 brightnessSlider.value = localBrightness;
             }
 
@@ -106,11 +113,36 @@ public class LoadData : MonoBehaviour
                 if (localFrameCount == 1)
                 {
                     FPSToggle.isOn = true;
+                    frameCounter.SetActive(true);
                 }
                 else
                 {
                     FPSToggle.isOn = false;
                 }
+            }
+
+            CustomizationMenu custom = customizationMenu.GetComponent<CustomizationMenu>();
+            // Check if ball skin is saved
+            if (PlayerPrefs.HasKey("ball"))
+            {
+                int skin = PlayerPrefs.GetInt("ball");
+                custom.ChangeBall(skin);
+                ballDropdown.value = skin;
+            }
+
+            // Check if wings skin is saved
+            if (PlayerPrefs.HasKey("wings"))
+            {
+                int skin = PlayerPrefs.GetInt("wings");
+                wingsDropdown.value = skin;
+            }
+
+            // Check if trail is saved
+            if (PlayerPrefs.HasKey("trail"))
+            {
+                int skin = PlayerPrefs.GetInt("trail");
+                custom.ChangeTrail(skin);
+                trailDropdown.value = skin;
             }
         }
     }

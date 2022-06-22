@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Camera))]
@@ -37,7 +38,6 @@ public class OrbitCamera : MonoBehaviour
 
 	void LateUpdate()
 	{
-		// Freeze the camera when paused
 		if (frozen)
         {
 			return;
@@ -46,7 +46,7 @@ public class OrbitCamera : MonoBehaviour
 		UpdateFocusPoint();
 		Quaternion lookRotation;
 
-		// Limit camera angles
+		// Get new camera angle
 		if (CamControl())
         {
 			ConstrainAngles();
@@ -162,5 +162,17 @@ public class OrbitCamera : MonoBehaviour
 			halfExtends.z = 0f;
 			return halfExtends;
 		}
+	}
+
+	public IEnumerator LerpFromTo(Vector3 pos1, Vector3 pos2, Quaternion rot1, Quaternion rot2, float duration)
+	{
+		for (float t = 0f; t < duration; t += Time.deltaTime)
+		{
+			transform.position = Vector3.Lerp(pos1, pos2, t / duration);
+			transform.rotation = Quaternion.Slerp(rot1, rot2, t / duration);
+			yield return 0;
+		}
+		transform.position = pos2;
+		transform.rotation = rot2;
 	}
 }

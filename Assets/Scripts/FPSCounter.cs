@@ -19,6 +19,7 @@ public class FPSCounter : MonoBehaviour
 
     public void ShowFPS(bool displayed)
     {
+        gameObject.SetActive(displayed);
         PlayerPrefs.SetInt("frameCount", (displayed ? 1 : 0));
     }
 }

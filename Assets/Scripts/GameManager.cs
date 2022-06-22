@@ -5,13 +5,20 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    [Header("General")]
+    [Header("Transforms")]
+    [SerializeField] Transform camTransform;
+    [SerializeField] Transform flagTransform;
+
+    [Header("Scripts")]
+    [SerializeField] Movement ball;
+    [SerializeField] OrbitCamera camScript;
+
+    [Header("UI")]
     [SerializeField] GameObject win;
-    [SerializeField] GameObject ball;
     [SerializeField] GameObject pauseMenu;
-    [SerializeField] GameObject orbitCamera;
     [SerializeField] GameObject abovePlayerText;
-    [SerializeField] GameObject frameCounter;
+    [SerializeField] GameObject highscore;
+    [SerializeField] TextMeshProUGUI scoreMsg;
     [SerializeField] int level;
 
     [Header("Hazards/Respawn")]
@@ -35,31 +42,34 @@ public class GameManager : MonoBehaviour
         scored = true;
         abovePlayerText.SetActive(false);
 
-        GameObject scoreMsg = win.transform.Find("ScoreMessage").gameObject;
-
-        int flaps = ball.GetComponent<Movement>().flapCount;
+        int flaps = ball.flapCount;
         if (flaps == 1)
         {
-            scoreMsg.GetComponent<TextMeshProUGUI>().SetText("Hole in One!");
+            scoreMsg.SetText("Hole in One!");
         }
         else
         {
-            scoreMsg.GetComponent<TextMeshProUGUI>().SetText("{0:0} Flaps!", flaps);
+            scoreMsg.SetText("{0:0} Flaps!", flaps);
         }
-        win.SetActive(true);
+
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
-        ball.GetComponent<Movement>().disabled = true;
+        ball.disabled = true;
+        camScript.frozen = true;
+        win.SetActive(true);
+        StartCoroutine(camScript.LerpFromTo(camTransform.position, flagTransform.position + 25 * Vector3.up, 
+            camTransform.rotation, Quaternion.Euler(new Vector3(90f, 0f, 0f)), 3f));
 
         if (!PlayerPrefs.HasKey("highscore" + level) || flaps < PlayerPrefs.GetInt("highscore" + level))
         {
+            highscore.SetActive(true);
             PlayerPrefs.SetInt("highscore" + level, flaps);
         }
     }
 
     public void Death()
     {
-        ball.GetComponent<Movement>().disabled = true;
+        ball.disabled = true;
         respawnTimer.SetActive(true);
         Invoke("Restart", restartDelay);
         StartCoroutine(UpdateRespawnTimer());
@@ -70,16 +80,16 @@ public class GameManager : MonoBehaviour
         respawnTimer.SetActive(false);
         scored = false;
         Time.timeScale = 1;
-        ball.GetComponent<Movement>().disabled = false;
-        ball.GetComponent<Movement>().drowned = false;
-        orbitCamera.GetComponent<OrbitCamera>().frozen = false;
+        ball.disabled = false;
+        ball.drowned = false;
+        camScript.frozen = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void GoHome()
     {
         Time.timeScale = 1;
-        orbitCamera.GetComponent<OrbitCamera>().frozen = false;
+        camScript.frozen = false;
         Destroy(GameObject.Find("AudioManager"));
         SceneManager.LoadScene(0);
     }
@@ -89,10 +99,9 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         pauseMenu.SetActive(true);
         hazards.SetActive(false);
-        frameCounter.SetActive(false);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
-        orbitCamera.GetComponent<OrbitCamera>().frozen = true;
+        camScript.frozen = true;
     }
 
     public void Resume()
@@ -100,10 +109,9 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         pauseMenu.SetActive(false);
         hazards.SetActive(true);
-        frameCounter.SetActive(true);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        orbitCamera.GetComponent<OrbitCamera>().frozen = false;
+        camScript.frozen = false;
     }
 
     float timeLeft;

@@ -16,6 +16,8 @@ public class Movement : MonoBehaviour
 	[SerializeField] AudioClip sand;
 	[SerializeField] AudioClip impact;
 
+	public Animator flapAnim;
+
 	Vector3 velocity;
 	Vector3 horizontalVelocity;
 	Vector3 verticalVelocity;
@@ -28,7 +30,6 @@ public class Movement : MonoBehaviour
 
 	bool desiredFlap;
 	bool putting;
-	float sincePutting;
 	int surfaceIndex;
 
 	Rigidbody body;
@@ -78,6 +79,7 @@ public class Movement : MonoBehaviour
 			// Apply directional velocity
 			body.velocity = horizontalVelocity + verticalVelocity;
 
+			flapAnim.Play("Flap", -1, 0f);
 			audioSource.PlayOneShot(wings, 0.5f);
 		}
 	}
@@ -97,6 +99,8 @@ public class Movement : MonoBehaviour
 		}
 		float magnitude = horizontalVelocity.magnitude;
 
+		Vector3 flapDirection;
+
 		// Check if camera affects direction
 		if (playerInputSpace)
 		{
@@ -106,13 +110,16 @@ public class Movement : MonoBehaviour
 			Vector3 right = playerInputSpace.right;
 			right.y = 0f;
 			right.Normalize();
-			horizontalVelocity += (forward * playerInput.y + right * playerInput.x) * flapForce;
+			flapDirection = forward * playerInput.y + right * playerInput.x;
+			horizontalVelocity += flapDirection * flapForce;
 		}
 		else
 		{
 			horizontalVelocity.x += playerInput.x * flapForce;
 			horizontalVelocity.z += playerInput.y * flapForce;
+			flapDirection = playerInput;
 		}
+		body.transform.rotation = Quaternion.LookRotation(flapDirection);
 
 		// Make sure player cannot increase speed over maxSpeed by flapping
 		if (magnitude > maxSpeed)
