@@ -85,9 +85,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 3636701432341853239}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 100
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 100
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -6515,7 +6515,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   brightnessSlider: {fileID: 3636701431208549964}
   brightnessValue: {fileID: 3636701433219821482}
-  defaultBrightness: 1
+  defaultBrightness: 100
   qualityDropdown: {fileID: 3636701433034147469}
   fullscreenToggle: {fileID: 3636701432391421581}
   resolutionDropdown: {fileID: 3636701431902348586}
@@ -9731,7 +9731,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0.000061035156, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 80, y: 25}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &3636701432885214665
