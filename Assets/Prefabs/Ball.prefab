@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 753475022536533181}
   - component: {fileID: 569789202}
   - component: {fileID: 3695518782142445409}
+  - component: {fileID: 753475022190872757}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -223,11 +224,13 @@ MonoBehaviour:
   wings: {fileID: 8300000, guid: 692e8f0fbaf4fd9448de626cc5a8bc5c, type: 3}
   sand: {fileID: 8300000, guid: d17f94d95cb420e4586994a4f20916e4, type: 3}
   impact: {fileID: 8300000, guid: 7356758f7590482488038578c26d5c38, type: 3}
-  flapAnim: {fileID: 0}
+  flapAnim: {fileID: 9069141433138881081}
+  photonView: {fileID: 753475022190872757}
   maxSpeed: 15
   disabled: 0
   drowned: 0
   flapCount: 0
+  PlayerCamera: {fileID: 920361648720725312, guid: 8f29883aa9321734c973a1b402653d7b, type: 3}
 --- !u!54 &753475022536533181
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -358,6 +361,33 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &753475022190872757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 753475022536533154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!1 &8968549406186879338
 GameObject:
   m_ObjectHideFlags: 0
@@ -450,5 +480,10 @@ PrefabInstance:
 --- !u!4 &8720515744971904654 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1228942742485160002, guid: a50e5de5b1ab600449b3cfea7b9d966f, type: 3}
+  m_PrefabInstance: {fileID: 7497202777775343308}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &9069141433138881081 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1573860877451011317, guid: a50e5de5b1ab600449b3cfea7b9d966f, type: 3}
   m_PrefabInstance: {fileID: 7497202777775343308}
   m_PrefabAsset: {fileID: 0}

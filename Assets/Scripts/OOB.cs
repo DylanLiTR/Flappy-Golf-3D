@@ -4,26 +4,13 @@ public class OOB : MonoBehaviour
 {
 	[SerializeField] GameManager gameManager;
 	[SerializeField] GameObject oobMsg;
-	[SerializeField] float minx, maxx, minz, maxz;
 
-	Rigidbody body;
-	bool alreadyOOB;
-
-	void Awake()
+	void OnTriggerExit(Collider other)
 	{
-		body = GetComponent<Rigidbody>();
-	}
-
-	void Update()
-	{
-		bool withinX = body.transform.position.x > minx && body.transform.position.x < maxx;
-		bool withinZ = body.transform.position.z > minz && body.transform.position.z < maxz;
-
-		if (!alreadyOOB && (!withinX || !withinZ))
-        {
+		if (other.gameObject.tag == "Player")
+		{
 			gameManager.Death();
-			oobMsg.SetActive(true);
-			alreadyOOB = true;
+			if (!PhotonNetwork.inRoom) oobMsg.SetActive(true);
 		}
 	}
 }

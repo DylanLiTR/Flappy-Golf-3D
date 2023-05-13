@@ -44,7 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47eb6a18a22b1ff48a7cbbb55353a0fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canUse: 1
   gameplayMenu: {fileID: 0}
   volumeValue: {fileID: 0}
   volumeSlider: {fileID: 0}
@@ -60,3 +59,5 @@ MonoBehaviour:
   trailDropdown: {fileID: 0}
   FPSToggle: {fileID: 0}
   frameCounter: {fileID: 0}
+  PingToggle: {fileID: 0}
+  pingCounter: {fileID: 0}

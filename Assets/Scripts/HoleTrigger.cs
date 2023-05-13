@@ -6,7 +6,7 @@ public class HoleTrigger : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
-        if (collider.name == "Ball")
+        if (collider.gameObject.tag == "Player" && collider.gameObject.GetComponent<PhotonView>().viewID == gameManager.ball.GetComponent<PhotonView>().viewID)
         {
             gameManager.Scored();
             GetComponent<AudioSource>().Play();

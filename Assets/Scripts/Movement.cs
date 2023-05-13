@@ -1,8 +1,10 @@
 using UnityEngine;
 using TMPro;
 
-public class Movement : MonoBehaviour
+public class Movement : Photon.MonoBehaviour
 {
+	[SerializeField] GameObject PlayerCamera;
+	
     [Header("General")]
 	[SerializeField, Range(0f, 10f)] float flapHeight = 2f;
 	[SerializeField, Range(0f, 10f)] float flapForce = 2f;
@@ -23,6 +25,7 @@ public class Movement : MonoBehaviour
 	Vector3 verticalVelocity;
 	Vector2 playerInput;
 
+	[SerializeField] PhotonView photonView;
 	public float maxSpeed = 10f;
 	public bool disabled;
 	public bool drowned;
@@ -36,6 +39,15 @@ public class Movement : MonoBehaviour
 
 	void Awake()
 	{
+		if (photonView.isMine)
+		{
+			PlayerCamera.SetActive(true);
+			abovePlayer.SetText(PhotonNetwork.playerName);
+		}
+		else if (PhotonNetwork.inRoom)
+		{
+			abovePlayer.SetText(photonView.owner.NickName);
+		}
 		body = GetComponent<Rigidbody>();
 		flapCount = 0;
 	}
@@ -64,7 +76,7 @@ public class Movement : MonoBehaviour
         }
 
 		// Check if flap was made
-		if (desiredFlap)
+		if ((!PhotonNetwork.inRoom || photonView.isMine) && desiredFlap)
 		{
 			// Get the current velocity
 			velocity = body.velocity;
@@ -73,8 +85,12 @@ public class Movement : MonoBehaviour
 
 			desiredFlap = false;
 			Flap();
-			++flapCount;
-			abovePlayer.SetText("{0:0}", flapCount);
+
+			if (!PhotonNetwork.inRoom)
+			{
+				++flapCount;
+				abovePlayer.SetText("{0:0}", flapCount);
+			}
 
 			// Apply directional velocity
 			body.velocity = horizontalVelocity + verticalVelocity;

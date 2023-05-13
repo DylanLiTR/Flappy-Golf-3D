@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 920361648720725314}
   - component: {fileID: 920361648720725315}
   - component: {fileID: 920361648720725316}
-  - component: {fileID: 1862393421}
+  - component: {fileID: -7292787396507961686}
   m_Layer: 0
   m_Name: Orbit Camera
   m_TagString: MainCamera
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a8dcd6e5ea452e4a88bcc89445137f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  focus: {fileID: 0}
+  focus: {fileID: 753475022536533182, guid: 1d28e3d41134ab44b8661d25b7fd2ce1, type: 3}
   distance: 12
   focusRadius: 1
   focusCentering: 0.5
@@ -107,11 +107,11 @@ MonoBehaviour:
   obstructionMask:
     serializedVersion: 2
     m_Bits: 4294967291
-  abovePlayer: {fileID: 0}
-  gameplayMenu: {fileID: 0}
+  abovePlayer: {fileID: 1122909526020305984, guid: b88304a61ce25c74085f5dc410e76ef1, type: 3}
+  gameplayMenu: {fileID: 2052806576726571934, guid: 1477cbe43d0634ad3ae6eaf375b010dd, type: 3}
   frozen: 0
   sensitivity: 90
---- !u!114 &1862393421
+--- !u!114 &-7292787396507961686
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -120,8 +120,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 920361648720725312}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e30b39b469a99a844921ed5fa0312eb1, type: 3}
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  water:
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
   - {fileID: 0}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0

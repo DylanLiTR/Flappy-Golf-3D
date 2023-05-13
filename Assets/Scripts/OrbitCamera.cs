@@ -6,17 +6,17 @@ public class OrbitCamera : MonoBehaviour
 {
 	[SerializeField] Transform focus = default;
 	[SerializeField, Range(1f, 20f)] float distance = 10f;
-    [SerializeField, Min(0f)] float focusRadius = 2f;
+	[SerializeField, Min(0f)] float focusRadius = 2f;
 	[SerializeField, Range(0f, 1f)] float focusCentering = 0.5f;
 	[SerializeField, Range(-89f, 89f)] float minVerticalAngle = -30f, maxVerticalAngle = 60f;
 	[SerializeField] LayerMask obstructionMask = -1;
 	[SerializeField] Transform abovePlayer;
-	[SerializeField] GameObject gameplayMenu;
 
 	Vector3 focusPoint;
 	Vector2 orbitAngles = new Vector2(20f, 0f);
 
 	public bool frozen;
+	public bool disabled;
 	public float sensitivity = 90f;
 
 	Camera regularCamera;
@@ -27,27 +27,17 @@ public class OrbitCamera : MonoBehaviour
 		regularCamera = GetComponent<Camera>();
 		focusPoint = focus.position;
 		transform.localRotation = Quaternion.Euler(orbitAngles);
-
-		// Hide cursor and lock position
-		Cursor.visible = false;
-		Cursor.lockState = CursorLockMode.Locked;
-
-		// Gets the sensitivity saved from the gameplay controller
-		sensitivity = gameplayMenu.GetComponent<GameplayController>().sensitivity;
 	}
 
 	void LateUpdate()
 	{
-		if (frozen)
-        {
-			return;
-        }
+		if (frozen) return;
 
 		UpdateFocusPoint();
 		Quaternion lookRotation;
 
 		// Get new camera angle
-		if (CamControl())
+		if (!disabled && CamControl())
         {
 			ConstrainAngles();
 			lookRotation = Quaternion.Euler(orbitAngles);

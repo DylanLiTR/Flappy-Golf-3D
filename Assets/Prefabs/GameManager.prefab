@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3371736976200901230}
   - component: {fileID: 3371736976200901229}
+  - component: {fileID: 1412356715}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -44,12 +45,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d37a2da67e4cffe4eb7c9750528d1e68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flagTransform: {fileID: 0}
+  playerPrefab: {fileID: 2113843451195829585, guid: 6559bb4be868946e89ef13eaa3ea150a, type: 3}
+  gameCanvas: {fileID: 0}
+  readyButton: {fileID: 0}
+  sceneCamera: {fileID: 0}
+  feedGrid: {fileID: 0}
+  playerFeed: {fileID: 1654655449037549784, guid: bbe3e81495caa4dd1ac2b86bc18020ba, type: 3}
+  photonView: {fileID: 1412356715}
   win: {fileID: 0}
-  ball: {fileID: 0}
   pauseMenu: {fileID: 0}
-  orbitCamera: {fileID: 0}
-  abovePlayerText: {fileID: 0}
+  gameplayMenu: {fileID: 0}
+  highscore: {fileID: 0}
+  customizationMenu: {fileID: 0}
+  loadData: {fileID: 0}
+  scoreMsg: {fileID: 0}
+  roomText: {fileID: 0}
   level: 1
   hazards: {fileID: 0}
   respawnTimer: {fileID: 0}
+  flag: {fileID: 0}
   restartDelay: 3
+  ball: {fileID: 0}
+--- !u!114 &1412356715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3371736976200901228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
